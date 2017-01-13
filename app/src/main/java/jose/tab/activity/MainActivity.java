@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case R.id.btnOut:
                         view.getBackground().setAlpha(255);
-                        System.exit(0);
+                        finish();
+                        //System.exit(0);
                         break;
                 }
             }
