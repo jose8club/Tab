@@ -1,0 +1,977 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    tools:context="jose.tab.fragments.WebFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView101"
+        android:layout_weight="0.49" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView102"
+        android:layout_weight="0.49"
+        android:layout_below="@+id/textView101"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView03"
+        android:layout_alignLeft="@+id/textView02"
+        android:layout_below="@+id/textView102"
+        android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/web_cont"
+            android:layout_alignTop="@+id/scrollView03"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/name_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nombre de la Obra"
+                    android:layout_width = "122dp"
+                    android:id="@+id/web_lbl_name"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold"/>
+
+                <TextView
+                    android:id="@+id/web_txt_name"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Nombre Obra"
+                    android:maxLength="55"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="false"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView01"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView01"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />-->
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/author_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Autor de la Obra"
+                    android:layout_width="122dp"
+                    android:id="@+id/web_author_label"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold"/>
+
+                <TextView
+                    android:id="@+id/web_author_txt"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Nombre Autor"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView01"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView01"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />-->
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/creation_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Fecha de Creación de la Obra"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_creation"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold"/>
+
+                <TextView
+                    android:id="@+id/web_txt_creation"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Creacion"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView077"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/creation_local_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/summary_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Resumen Descriptivo de la Obra"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_summary"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView080"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:id="@+id/web_btn_summary"
+                    android:text="Ver Resumen"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView078"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/type_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Tipo de Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_type"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_type"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Tipo"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/style_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Estilo de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_style"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_style"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Estilo"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/technique_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Técnica de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_technique"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_technique"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Tecnica"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/entry_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Fecha de Ingreso de la Obra"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_entry"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_entry"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Ingreso"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nationality_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Nacionalidad de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_nationality"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_nationality"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Nacionalidad"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/dim_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Dimensiones de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_dim"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_dim"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Dimensiones"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/weight_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Peso de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_weight"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/web_txt_weight"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:hint="Peso"
+                    android:maxLength="55"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:phoneNumber="false"
+                    android:singleLine="true"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|normal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/image_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Imagen de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_lbl_image"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:id="@+id/web_btn_image"
+                    android:text="Ver Imagen"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1341"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/history_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Historia de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_history"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView24"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:id="@+id/web_btn_history"
+                    android:text="Ver Historia"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView23"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView25"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/audio_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left"
+                android:focusableInTouchMode="false">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Audio de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_audio"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView27"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ToggleButton
+                    android:id="@+id/web_btn_audio"
+                    android:text="Ver Historia"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:textOff="Escuchar Audio"
+                    android:textOn="Silenciar Audio" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView26"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView28"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/video_web_layout"
+                android:layout_below="@+id/textView02"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="57dp"
+                android:layout_marginStart="57dp"
+                android:gravity="left" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Video de la Obra Expuesta"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/web_label_video"
+                    android:layout_gravity="left"
+                    android:layout_alignTop="@+id/scrollView02"
+                    android:layout_toLeftOf="@+id/scrollView02"
+                    android:layout_toStartOf="@+id/scrollView02"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView31"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:id="@+id/web_btn_video"
+                    android:text="Ver Video"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_width="201dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView29"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView32"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView33"
+                    android:layout_weight="0.49"
+                    android:layout_below="@+id/textView077"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView34"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView35"
+                android:layout_weight="0.49"
+                android:layout_below="@+id/textView077"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView179"
+        android:layout_weight="0.49"
+        android:layout_below="@+id/scrollView02"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView175"
+        android:layout_weight="0.49"
+        android:layout_below="@+id/textView079"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

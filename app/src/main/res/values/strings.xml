@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MuseoApp</string>
+    <string name="one">NFC</string>
+    <string name="two">LOCAL</string>
+    <string name="three">WEB</string>
+    <string name="btn_icon_text">Ingresar</string>
+    <string name="btn_exit">Salir</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="title_activity_tabs">Muestra de Obras de Arte</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash_screen">Splash_screen</string>
+</resources>
