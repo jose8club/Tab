@@ -1,6 +1,8 @@
 package jose.tab.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnIn.setOnClickListener(this);
         btnOut.setOnClickListener(this);
 
+        // Uso de NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter==null){
             //detecta si el dispositivo tiene o no NFC
