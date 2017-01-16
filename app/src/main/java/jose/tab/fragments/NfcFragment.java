@@ -17,6 +17,8 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 
 import jose.tab.R;
+import jose.tab.activity.MainActivity;
+import jose.tab.activity.TabsActivity;
 
 public class NfcFragment extends Fragment {
 
@@ -34,20 +36,8 @@ public class NfcFragment extends Fragment {
     /**
      * Mensajes NFC
      */
-    public static final String INTENTO_NFC = "Intento de obtener NFC";
     public static final String ERROR_MSGS = "Mensajes de NFC no encontrados";
     public static final String ERROR_LECT = "No se puede leer NFC";
-
-
-    /**
-     * Intent para la lectura
-     */
-    Intent intent;
-
-    /**
-     * Numero serie NFC, sirve como PK de las bases de datos
-     */
-    String serie;
 
     public NfcFragment() {
         // Required empty public constructor
@@ -56,7 +46,6 @@ public class NfcFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -72,38 +61,19 @@ public class NfcFragment extends Fragment {
 
         // Uso de NFC
         Adapter = NfcAdapter.getDefaultAdapter(getActivity());
-        intent = new Intent(view.getContext(),NfcFragment.class);
-        Reading(intent);
         return view;
     }
 
     /**
-     * El funcionamiento del NFC se hace con el intent de la actividad
-     * debido a que no se desea perder la instancia
-     * @param intent
+     * Uso de parcelable para leer los mensajes
+     * @param parcelables
+     * @param serie
      */
-    private void Reading(Intent intent) {
-        if(intent.hasExtra(NfcAdapter.EXTRA_TAG)){
-            Toast.makeText(getActivity(), INTENTO_NFC, Toast.LENGTH_LONG).show();
-            // obtener el numero de serie del tag qu es crucial para el
-            // resto del proceso porque actua como PK de las bases de datos
-            byte[] tagId = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-            serie = new String();
-            for (int i = 0; i < tagId.length; i++) {
-                String x = Integer.toHexString(((int) tagId[i] & 0xff));
-                if (x.length() == 1) {
-                    x = '0' + x;
-                }
-                serie += x + ' ';
-            }
-            //se busca el mensaje mediante el parcelable
-            Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            // si se encuentra el mensaje
-            if(parcelables != null && parcelables.length > 0){
-                readTextFromMessage((NdefMessage) parcelables[0], serie);
-            }else{
-                Toast.makeText(getActivity(),ERROR_MSGS, Toast.LENGTH_LONG).show();
-            }
+    public void uso(Parcelable[] parcelables, String serie) {
+        if(parcelables != null && parcelables.length > 0){
+            readTextFromMessage((NdefMessage) parcelables[0], serie);
+        }else{
+            Toast.makeText(getActivity(),ERROR_MSGS, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -157,4 +127,6 @@ public class NfcFragment extends Fragment {
         }
         return tagContent;
     }
+
+
 }
