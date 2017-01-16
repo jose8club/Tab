@@ -1,7 +1,10 @@
 package jose.tab.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -12,9 +15,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +30,6 @@ import jose.tab.R;
 
 
 public class TabsActivity extends AppCompatActivity {
-
-    /**
-     * Adaptador NFC, usado para la lectura del tag
-     */
-    NfcAdapter Adapter;
-
-    /**
-     * Mensajes NFC
-     */
-    public static final String INTENTO_NFC = "Intento de obtener NFC";
 
     /**
      * Toolbar de la ventana
@@ -61,34 +56,34 @@ public class TabsActivity extends AppCompatActivity {
     };
 
     /**
-     * Intent de la activity
-     */
-    NfcFragment nfc;
-    LocalFragment local;
-    WebFragment web;
-
-    /**
-     * Numero serie NFC, sirve como PK de las bases de datos
-     */
-    String serie;
-
-    /**
      * Establece errores NFC
      */
     public static final String ERROR_ENABLE = "No esta activada la funcionalidad NFC";
     public static final String ERROR_NFC = "Este dispositivo no soporta NFC";
+    public static final String ERROR_MSGS = "Mensajes de NFC no encontrados";
+    public static final String ERROR_LECT = "No se puede leer NFC";
+
+    /**
+     * Mensajes NFC
+     */
+    public static final String INTENTO_NFC = "Intento de obtener NFC";
 
     /**
      * Adaptador NFC, usado para comprobar si posee NFC el equipo o no
      */
     NfcAdapter nfcAdapter;
 
+    /**
+     * Numero serie NFC, sirve como PK de las bases de datos y el string de resultado
+     */
+    String serie;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
 
-        // Uso de NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter==null){
             //detecta si el dispositivo tiene o no NFC
@@ -100,11 +95,6 @@ public class TabsActivity extends AppCompatActivity {
             Toast.makeText(this,ERROR_ENABLE, Toast.LENGTH_LONG).show();
             finish();
         }
-        
-        nfc = new NfcFragment();
-        local = new LocalFragment();
-        web = new WebFragment();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -125,7 +115,6 @@ public class TabsActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -156,16 +145,54 @@ public class TabsActivity extends AppCompatActivity {
         });
     }
 
+
     /**
-     * Handle onNewIntent() to inform the fragment manager that the
-     * state is not saved.  If you are handling new intents and may be
-     * making changes to the fragment state, you want to be sure to call
-     * through to the super-class here first.  Otherwise, if your state
-     * is saved but the activity is not stopped, you could get an
-     * onNewIntent() call which happens before onResume() and trying to
-     * perform fragment operations at that point will throw IllegalStateException
-     * because the fragment manager thinks the state is still saved.
-     *
+     * Resume la actividad manteniendo la consistencia
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewPager.setCurrentItem(0);
+        if(!nfcAdapter.isEnabled()){
+            //detecta si el dispositivo tiene activado su NFC
+            Toast.makeText(this,ERROR_ENABLE, Toast.LENGTH_LONG).show();
+            finish();
+        }
+        enableForegroundDispatchSystem();
+    }
+
+    /**
+     * Da pausa a la actividad
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        disableForegroundDispatchSystem();
+    }
+
+    /**
+     * Definicion de la actividad a retomar
+     */
+    private void enableForegroundDispatchSystem() {
+        // definicion de la actividad a retomar
+        Intent intent = new Intent(this, TabsActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        // recupera la actividad intent
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        // empareja intent con pendingintent
+        IntentFilter[] intentFilters = new IntentFilter[]{};
+        // retoma la actividad del nfcadapter
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
+    }
+
+    /**
+     * Deshabilita la actividad del adaptador nfc nfcadapter
+     */
+    private void disableForegroundDispatchSystem() {
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    /**
+     * Nuevo intento
      * @param intent
      */
     @Override
@@ -173,7 +200,7 @@ public class TabsActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)){
-            Toast.makeText(this, INTENTO_NFC, Toast.LENGTH_LONG).show();
+            Toast.makeText(this,INTENTO_NFC, Toast.LENGTH_LONG).show();
             // obtener el numero de serie del tag qu es crucial para el
             // resto del proceso porque actua como PK de las bases de datos
             byte[] tagId = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
@@ -188,18 +215,63 @@ public class TabsActivity extends AppCompatActivity {
             //se busca el mensaje mediante el parcelable
             Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             // si se encuentra el mensaje
-            nfc.uso(parcelables, serie);
-
+            if(parcelables != null && parcelables.length > 0){
+                readTextFromMessage((NdefMessage) parcelables[0], serie);
+            }else{
+                Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
     /**
-     * Se define que siempre que se quiera regresar regrese al primer tab el de NFC
+     * Lee la codificacion del mensaje
+     * @param ndefMessage
+     * @param serie
      */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        viewPager.setCurrentItem(0);
+    private void readTextFromMessage(NdefMessage ndefMessage, String serie) {
+        //Se convierte el gran mensaje en un arreglo de records
+        NdefRecord[] ndefRecords = ndefMessage.getRecords();
+        // si hay mas de un arreglo de records se procesa
+        if(ndefRecords != null && ndefRecords.length > 0){
+            NdefRecord ndefRecord = ndefRecords[0];
+            String tagContent = getTextFromNdefRecord(ndefRecord);
+            if(tagContent.equals(";;") || tagContent.equals("")){
+                NfcFragment.nfc_txt_name.setText("");
+                NfcFragment.nfc_txt_author.setText("");
+                NfcFragment.nfc_txt_creation.setText("");
+                Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
+            }else{
+                String[] exit = tagContent.split(";");
+                NfcFragment.nfc_txt_name.setText(exit[0]);
+                NfcFragment.nfc_txt_author.setText(exit[1]);
+                NfcFragment.nfc_txt_creation.setText(exit[2]);
+                Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(this,ERROR_LECT, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Se obtiene la codificacion de cada mensaje en el formato UTF-8
+     * @param ndefRecord
+     * @return
+     */
+    public String getTextFromNdefRecord(NdefRecord ndefRecord) {
+        String tagContent = null;
+        try {
+            byte[] payload = ndefRecord.getPayload();
+            String textEncoding;
+            if ((payload[0] & 128) == 0) textEncoding = "UTF-8";
+            else textEncoding = "UTF-16";
+            int languageSize = payload[0] & 0063;
+            tagContent = new String(payload, languageSize + 1,
+                    payload.length - languageSize - 1, textEncoding);
+        } catch (UnsupportedEncodingException e) {
+            Log.e("getTextFromNdefRecord", e.getMessage(), e);
+        }
+        return tagContent;
     }
 
     /**
@@ -233,12 +305,9 @@ public class TabsActivity extends AppCompatActivity {
      */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(nfc, "NFC");
-        adapter.addFrag(local, "LOCAL");
-        adapter.addFrag(web, "WEB");
-        //adapter.addFrag(new NfcFragment(), "NFC");
-        //adapter.addFrag(new LocalFragment(), "LOCAL");
-        //adapter.addFrag(new WebFragment(), "WEB");
+        adapter.addFrag(new NfcFragment(), "NFC");
+        adapter.addFrag(new LocalFragment(), "LOCAL");
+        adapter.addFrag(new WebFragment(), "WEB");
         viewPager.setAdapter(adapter);
     }
 
