@@ -339,9 +339,18 @@ public class TabsActivity extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
+        /*
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+        */
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            // return null to display only the icon
+            return null;
         }
     }
 
