@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -76,7 +77,7 @@ public class TabsActivity extends AppCompatActivity {
     /**
      * Numero serie NFC, sirve como PK de las bases de datos y el string de resultado
      */
-    String serie;
+    public static String serie;
 
 
     @Override
@@ -228,7 +229,7 @@ public class TabsActivity extends AppCompatActivity {
      * @param ndefMessage
      * @param serie
      */
-    private void readTextFromMessage(NdefMessage ndefMessage, String serie) {
+    private void readTextFromMessage(NdefMessage ndefMessage, final String serie) {
         //Se convierte el gran mensaje en un arreglo de records
         NdefRecord[] ndefRecords = ndefMessage.getRecords();
         // si hay mas de un arreglo de records se procesa
@@ -236,9 +237,9 @@ public class TabsActivity extends AppCompatActivity {
             NdefRecord ndefRecord = ndefRecords[0];
             String tagContent = getTextFromNdefRecord(ndefRecord);
             if(tagContent.equals(";;") || tagContent.equals("")){
-                NfcFragment.nfc_txt_name.setText("");
-                NfcFragment.nfc_txt_author.setText("");
-                NfcFragment.nfc_txt_creation.setText("");
+                NfcFragment.nfc_txt_name.setText(NfcFragment.nfc_txt_name.getHint());
+                NfcFragment.nfc_txt_author.setText(NfcFragment.nfc_txt_author.getHint());
+                NfcFragment.nfc_txt_creation.setText(NfcFragment.nfc_txt_creation.getHint());
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }else{
                 String[] exit = tagContent.split(";");
@@ -246,6 +247,7 @@ public class TabsActivity extends AppCompatActivity {
                 NfcFragment.nfc_txt_author.setText(exit[1]);
                 NfcFragment.nfc_txt_creation.setText(exit[2]);
                 Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
+
             }
 
         }else {
