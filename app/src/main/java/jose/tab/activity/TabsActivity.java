@@ -248,6 +248,7 @@ public class TabsActivity extends AppCompatActivity {
                 NfcFragment.nfc_txt_creation.setText(exit[2]);
                 Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
 
+
             }
 
         }else {
@@ -339,18 +340,10 @@ public class TabsActivity extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
-        /*
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
-        }
-        */
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            // return null to display only the icon
-            return null;
+            //return null;
         }
     }
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import jose.tab.R;
+import jose.tab.activity.TabsActivity;
 
 public class WebFragment extends Fragment {
 
@@ -51,6 +52,11 @@ public class WebFragment extends Fragment {
      */
     ToggleButton web_btn_audio;
 
+    /**
+     * Es el Primary key usado desde el NFC
+     */
+    String PK;
+
     public WebFragment() {
         // Required empty public constructor
     }
@@ -76,6 +82,10 @@ public class WebFragment extends Fragment {
         web_txt_nationality = (TextView)view.findViewById(R.id.web_txt_nationality);
         web_txt_dim = (TextView)view.findViewById(R.id.web_txt_dim);
         web_txt_weight = (TextView)view.findViewById(R.id.web_txt_weight);
+
+        //Primary Key asegurada
+        PK = TabsActivity.serie;
+        modal(PK);
 
         //botones inicialiados
 
