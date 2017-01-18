@@ -2,7 +2,9 @@ package jose.tab.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,12 @@ import android.widget.ToggleButton;
 
 import jose.tab.R;
 import jose.tab.activity.TabsActivity;
+import jose.tab.model.Obra;
+import jose.tab.service.APIMuseo;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WebFragment extends Fragment {
 
@@ -57,6 +65,25 @@ public class WebFragment extends Fragment {
      */
     String PK;
 
+    /**
+     * URL del servidor web a usar
+     */
+    String URL = "http://jose8android.esy.es/";
+
+    /**
+     * Dialog de carga de los datos
+     */
+    private ProgressDialog load;
+
+    /**
+     * String de las respuestas obtenidas
+     */
+    String name_web,author_web,creation_web,summary_web,
+           type_web, style_web, technique_web,
+           entry_web, nationality_web, dim_web,
+           weight_web, image_web, history_web,
+           audio_web, video_web;
+
     public WebFragment() {
         // Required empty public constructor
     }
@@ -86,6 +113,15 @@ public class WebFragment extends Fragment {
         //Primary Key asegurada
         PK = TabsActivity.serie;
         modal(PK);
+
+        //Carga de la informacion
+        load = new ProgressDialog(getActivity());
+
+        load.setMessage("Espere, cargando informacion");
+        load.setCancelable(false);
+
+        //Carga de los datos
+        getObra(PK);
 
         //botones inicialiados
 
@@ -291,6 +327,99 @@ public class WebFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    /**
+     * Es el metodo que traera los datos de la base de datos a ser mostrados
+     * en pantalla
+     * @param pk
+     */
+    private void getObra(String pk) {
+
+        // Carga de Dialog
+        dialogOn();
+
+        // Funcionamiento del servicio APIMuseo
+        try {
+
+            // Creacion del servicio Retrofit con el URL base dado
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            // Creacion de la instancia a la busqueda de la obra de arte con
+            // la Primary key otorgada a la API
+            APIMuseo apiMuseo = retrofit.create(APIMuseo.class);
+            retrofit2.Call<Obra> call = apiMuseo.getObra(pk);
+
+            // Enviar de manera asincrona la solicitud y notificar el callback (entrega) de
+            // la respuesta de la base de datos y mostrar un mensaje en lo que se refiere a si fracasa la busqueda
+            call.enqueue(new Callback<Obra>() {
+                @Override
+                public void onResponse(retrofit2.Call<Obra> call, Response<Obra> response) {
+
+                    // Creacion de la instancia de la obra encontrada
+                    Obra arte = response.body();
+
+                    // Obtener campos de la obra encontrada
+                    name_web = arte.getNombre();
+                    author_web = arte.getAutor();
+                    creation_web = arte.getFecha_creacion();
+                    summary_web = arte.getResumen();
+                    type_web = arte.getTipo_obra();
+                    style_web = arte.getEstilo_obra();
+                    technique_web = arte.getTecnica_obra();
+                    entry_web = arte.getFecha_ingreso();
+                    nationality_web = arte.getNacionalidad();
+                    dim_web = arte.getDimensiones();
+                    weight_web = arte.getPeso();
+                    image_web = arte.getImagen();
+                    history_web = arte.getHistoria();
+                    audio_web = arte.getAudio();
+                    video_web = arte.getVideo();
+
+                    // Poner los datos en los campos
+                    web_txt_name.setText(name_web);
+                    web_txt_author.setText(author_web);
+                    web_txt_creation.setText(creation_web);
+                    web_txt_type.setText(type_web);
+                    web_txt_style.setText(style_web);
+                    web_txt_technique.setText(technique_web);
+                    web_txt_entry.setText(entry_web);
+                    web_txt_nationality.setText(nationality_web);
+                    web_txt_dim.setText(dim_web);
+                    web_txt_weight.setText(weight_web);
+
+                    // Apagar el dialog
+                    dialogOff();
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Obra> call, Throwable t) {
+                    Toast.makeText(getActivity(), "No se encontró información", Toast.LENGTH_LONG).show();
+                    dialogOff();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "La Aplicacion ha fracasado", Toast.LENGTH_LONG).show();
+            dialogOff();
+        }
+    }
+
+    /**
+     * Carga del dialog al momento de mostrar la informacion
+     */
+    private void dialogOn() {
+        if (!load.isShowing())load.show();
+    }
+
+    /**
+     * Fin de dialog de carga
+     * ocurre cuando se carga la informacion o cuando no encuentra nada
+     */
+    private void dialogOff(){
+        if (load.isShowing())load.dismiss();
     }
 
     /**

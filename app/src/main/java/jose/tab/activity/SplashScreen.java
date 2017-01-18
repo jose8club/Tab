@@ -18,17 +18,6 @@ public class SplashScreen extends Activity {
     // Establece la duracoin en pantalla del splash screen
     private static final long SPLASH_SCREEN_DELAY = 2000;
 
-    /**
-     * Establece errores NFC
-     */
-    //public static final String ERROR_ENABLE = "No esta activada la funcionalidad NFC";
-    //public static final String ERROR_NFC = "Este dispositivo no soporta NFC";
-
-    /**
-     * Adaptador NFC, usado para comprobar si posee NFC el equipo o no
-     */
-    //NfcAdapter nfcAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,19 +48,6 @@ public class SplashScreen extends Activity {
         Timer timer = new Timer();
         timer.schedule(task, SPLASH_SCREEN_DELAY);
 
-        /*
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if(nfcAdapter==null){
-            //detecta si el dispositivo tiene o no NFC
-            Toast.makeText(this, ERROR_NFC, Toast.LENGTH_LONG).show();
-            finish();
-        }
-        if(!nfcAdapter.isEnabled()){
-            //detecta si el dispositivo tiene activado su NFC
-            Toast.makeText(this,ERROR_ENABLE, Toast.LENGTH_LONG).show();
-            finish();
-        }
-        */
     }
 
 }

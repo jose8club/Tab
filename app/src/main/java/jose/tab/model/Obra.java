@@ -38,6 +38,13 @@ public class Obra {
     private String tipo_obra;
 
     /**
+     * Estilo artistico que uso el autor para crear la obra,
+     * normalmente de un periodo de la historia
+     */
+    @SerializedName("estilo_obra")
+    private String estilo_obra;
+
+    /**
      * Tecnica artistica que uso el autor para crear la obra
      */
     @SerializedName("tecnica_obra")
@@ -113,6 +120,14 @@ public class Obra {
 
     public void setDimensiones(String dimensiones) {
         this.dimensiones = dimensiones;
+    }
+
+    public String getEstilo_obra() {
+        return estilo_obra;
+    }
+
+    public void setEstilo_obra(String estilo_obra) {
+        this.estilo_obra = estilo_obra;
     }
 
     public String getFecha_creacion() {
