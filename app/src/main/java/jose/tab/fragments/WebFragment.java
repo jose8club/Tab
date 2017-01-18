@@ -135,17 +135,19 @@ public class WebFragment extends Fragment {
                     @Override
                     public void run() {
                         web_btn_summary.getBackground().setAlpha(255);
-                        /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
                         /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
                         final View sumView = inflater.inflate(R.layout.dialog_summary_web,null);
+                        final TextView dialog_web_txt = (TextView)sumView.findViewById(R.id.dialog_web_txt);
                         final Button dialog_btn_foot = (Button)sumView.findViewById(R.id.dialog_btn_foot);
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
+
+                        //Funcionamiento del dialog
+                        dialog_web_txt.setText(summary_web);
 
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
@@ -228,17 +230,19 @@ public class WebFragment extends Fragment {
                     @Override
                     public void run() {
                         web_btn_history.getBackground().setAlpha(255);
-                        /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
                         /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
                         final View sumView = inflater.inflate(R.layout.dialog_history_web,null);
+                        final TextView dialog_web_history_txt = (TextView)sumView.findViewById(R.id.dialog_web_history_txt);
                         final Button dialog_btn_foot = (Button)sumView.findViewById(R.id.dialog_btn_foot);
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
+
+                        //Funcionamiento del dialog
+                        dialog_web_history_txt.setText(history_web);
 
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
