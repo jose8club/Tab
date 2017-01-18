@@ -35,7 +35,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="406dp"
-        android:id="@+id/dialog_body_layout">
+        android:id="@+id/dialog_body_layout"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,8 +45,10 @@
 
         <VideoView
             android:layout_width="wrap_content"
-            android:layout_height="374dp"
-            android:id="@+id/dialog_video" />
+            android:layout_height="match_parent"
+            android:id="@+id/dialog_video"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
     </LinearLayout>
 

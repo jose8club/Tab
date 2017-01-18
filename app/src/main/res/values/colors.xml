@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#075e54</color>
     <!--<color name="colorPrimary">#125688</color>-->
-    <color name="colorPrimaryDark">#075e54</color>
+    <color name="colorPrimaryDark">#053E37</color>
     <!--<color name="colorPrimaryDark">#125688</color>-->
     <color name="textColorPrimary">#FFFFFF</color>
     <!--<color name="windowBackground">#FFFFFF#E8E8E8#dcf8c6</color>-->

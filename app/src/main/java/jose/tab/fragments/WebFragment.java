@@ -3,6 +3,9 @@ package jose.tab.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -12,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
@@ -78,6 +83,16 @@ public class WebFragment extends Fragment {
     String IMG = URL + "obras/imagenes/";
 
     /**
+     * URL del video
+     */
+    String VIDEO = URL + "obras/video/";
+
+    /**
+     * URL del audio
+     */
+    String AUDIO = URL + "obras/audio/";
+
+    /**
      * Dialog de carga de los datos
      */
     private ProgressDialog load;
@@ -90,6 +105,11 @@ public class WebFragment extends Fragment {
            entry_web, nationality_web, dim_web,
            weight_web, image_web, history_web,
            audio_web, video_web;
+
+    /**
+     * El mediaplayer para el audio
+     */
+    MediaPlayer player;
 
     public WebFragment() {
         // Required empty public constructor
@@ -123,7 +143,7 @@ public class WebFragment extends Fragment {
 
         //Carga de la informacion
         load = new ProgressDialog(getActivity());
-
+        load.setTitle("Carga de Información Web");
         load.setMessage("Espere, cargando informacion");
         load.setCancelable(false);
 
@@ -289,17 +309,54 @@ public class WebFragment extends Fragment {
                     @Override
                     public void run() {
                         web_btn_video.getBackground().setAlpha(255);
-                        /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
                         /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
                         final View sumView = inflater.inflate(R.layout.dialog_video_web,null);
                         final Button dialog_btn_foot = (Button)sumView.findViewById(R.id.dialog_btn_foot);
+
+                        final VideoView dialog_video = (VideoView)sumView.findViewById(R.id.dialog_video);
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
+
+                        //Carga del Video
+
+                        // Crear process dialog para la carga
+                        final ProgressDialog di = new ProgressDialog(getActivity());
+                        // Poner titulo
+                        di.setTitle("Video de Obra de Arte");
+                        // Poner mensaje
+                        di.setMessage("Cargando...");
+                        di.setIndeterminate(false);
+                        di.setCancelable(false);
+                        // Mostrar Barra de progreso
+                        di.show();
+
+                        try {
+                            // Incializar MediaController
+                            MediaController media = new MediaController(dialog_video.getContext());
+                            media.setAnchorView(dialog_video);
+                            // Uso del URL del video
+                            Uri video = Uri.parse(VIDEO + video_web);
+                            dialog_video.setMediaController(media);
+                            dialog_video.setVideoURI(video);
+                            //media.setEnabled(true);
+                            //media.show();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        dialog_video.requestFocus();
+                        dialog_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            // cerrar el dialog e inciar el video
+                            public void onPrepared(MediaPlayer mp) {
+                                di.dismiss();
+                                dialog_video.start();
+                            }
+                        });
 
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
@@ -334,10 +391,30 @@ public class WebFragment extends Fragment {
                         web_btn_audio.getBackground().setAlpha(255);
                         if(b){
                             //Encender Audio
-                            modal("audio encendido");
+                            try {
+                                player = new MediaPlayer();
+                                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                player.setDataSource(AUDIO + audio_web);
+                                player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                    @Override
+                                    public void onPrepared(MediaPlayer mp) {
+                                        mp.start();
+                                    }
+                                });
+                                player.prepareAsync();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         }else{
                             //Apagar Audio
-                            modal("audio apagado");
+                            try {
+                                player.reset();
+                                player.prepare();
+                                detener();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 };
@@ -438,6 +515,15 @@ public class WebFragment extends Fragment {
      */
     private void dialogOff(){
         if (load.isShowing())load.dismiss();
+    }
+
+    /**
+     * Este metodo es para detener el audio
+     */
+    private void detener() {
+        player.stop();
+        player.release();
+        player = null;
     }
 
     /**
