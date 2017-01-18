@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+
 import jose.tab.R;
 import jose.tab.activity.TabsActivity;
 import jose.tab.model.Obra;
@@ -69,6 +71,11 @@ public class WebFragment extends Fragment {
      * URL del servidor web a usar
      */
     String URL = "http://jose8android.esy.es/";
+
+    /**
+     * URL de la Imagen
+     */
+    String IMG = URL + "obras/imagenes/";
 
     /**
      * Dialog de carga de los datos
@@ -192,6 +199,20 @@ public class WebFragment extends Fragment {
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
 
+                        // Carga de la Imagen con Glide
+                        final ImageView dialog_img_web = (ImageView)sumView.findViewById(R.id.dialog_image_web);
+
+                        // Uso de Glide
+                        // load: se carga la imagen
+                        // crossFade: animacion de entrada
+                        // centerCrop: ocupa toda la pantalla de imgview
+                        // into: carga la imagen en la imageview
+                        Glide.with(getActivity())
+                                .load(IMG + image_web)
+                                .crossFade()
+                                .centerCrop()
+                                .into(dialog_img_web);
+
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -205,13 +226,6 @@ public class WebFragment extends Fragment {
                                     }
                                 };
                                 view.postDelayed(clickButton, 80);
-                            }
-                        });
-                        final ImageView dialog_img_local = (ImageView)sumView.findViewById(R.id.dialog_image_web);
-                        dialog_img_local.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                modal("Imagen Web");
                             }
                         });
                     }
