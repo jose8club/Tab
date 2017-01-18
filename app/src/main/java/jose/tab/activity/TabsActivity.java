@@ -51,9 +51,9 @@ public class TabsActivity extends AppCompatActivity {
      * Iconos que iran en cada pestania
      */
     private int[] tabIcons = {
-            R.drawable.ic_tab_nfc,
-            R.drawable.ic_tab_plus,
-            R.drawable.ic_tab_web
+            R.drawable.ic_nfc,
+            R.drawable.ic_local,
+            R.drawable.ic_web
     };
 
     /**
@@ -248,7 +248,6 @@ public class TabsActivity extends AppCompatActivity {
                 NfcFragment.nfc_txt_creation.setText(exit[2]);
                 Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
 
-
             }
 
         }else {
@@ -309,8 +308,8 @@ public class TabsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new NfcFragment(), "NFC");
-        adapter.addFrag(new LocalFragment(), "LOCAL");
-        adapter.addFrag(new WebFragment(), "WEB");
+        adapter.addFrag(new LocalFragment(), "Equipo");
+        adapter.addFrag(new WebFragment(), "Web");
         viewPager.setAdapter(adapter);
     }
 
@@ -340,11 +339,13 @@ public class TabsActivity extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
             //return null;
         }
+
     }
 
 }
