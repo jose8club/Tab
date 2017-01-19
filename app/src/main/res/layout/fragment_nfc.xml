@@ -184,7 +184,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="false"
-                    android:hint="Creacion"
+                    android:hint="Año de Creación"
                     android:maxLength="55"
                     android:maxLines="1"
                     android:minLines="1"
