@@ -302,11 +302,20 @@ public class TabsActivity extends AppCompatActivity {
         }
         */
         if(id == R.id.action_settings){
-            Toast.makeText(this,"Hola",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"Hola",Toast.LENGTH_LONG).show();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+
 
     /**
      * Metodo para establecer cada icono en cada tab disponible
