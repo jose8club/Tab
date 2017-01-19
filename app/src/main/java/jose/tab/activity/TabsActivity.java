@@ -16,8 +16,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -98,7 +101,7 @@ public class TabsActivity extends AppCompatActivity {
         }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -276,6 +279,14 @@ public class TabsActivity extends AppCompatActivity {
         return tagContent;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tabs, menu);
+        return true;
+    }
+
+
     /**
      * Esta opcion permite el retorno a la pantalla prinicipal
      * @param item
@@ -285,8 +296,13 @@ public class TabsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        /*
         if (id == android.R.id.home) {
             onBackPressed();  return true;
+        }
+        */
+        if(id == R.id.action_settings){
+            Toast.makeText(this,"Hola",Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -296,9 +312,12 @@ public class TabsActivity extends AppCompatActivity {
      * Metodo para establecer cada icono en cada tab disponible
      */
     private void setupTabIcons() {
+
+        // Establece Iconos
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+
     }
 
     /**
@@ -308,8 +327,8 @@ public class TabsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new NfcFragment(), "NFC");
-        adapter.addFrag(new LocalFragment(), "Equipo");
-        adapter.addFrag(new WebFragment(), "Web");
+        adapter.addFrag(new LocalFragment(), "APP");
+        adapter.addFrag(new WebFragment(), "WEB");
         viewPager.setAdapter(adapter);
     }
 

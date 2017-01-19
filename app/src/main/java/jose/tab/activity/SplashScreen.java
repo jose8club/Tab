@@ -35,7 +35,7 @@ public class SplashScreen extends Activity {
 
                 // Comenzar la actividad que le sigue al splash screen
                 Intent mainIntent = new Intent().setClass(
-                        SplashScreen.this, MainActivity.class);
+                        SplashScreen.this, TabsActivity.class);
                 startActivity(mainIntent);
 
                 // Cierra la actividad para que el usuario no pueda volver atrás
