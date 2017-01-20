@@ -37,7 +37,7 @@ public class WebFragment extends Fragment {
     /**
      * Textos de la base de datos web
      */
-    TextView web_txt_name, web_txt_author, web_txt_creation,
+    public static TextView web_txt_name, web_txt_author, web_txt_creation,
             web_txt_type, web_txt_style, web_txt_technique,
             web_txt_entry, web_txt_nationality, web_txt_dim,
             web_txt_weight;
@@ -95,7 +95,7 @@ public class WebFragment extends Fragment {
     /**
      * String de las respuestas obtenidas
      */
-    String name_web,author_web,creation_web,summary_web,
+    public static String name_web,author_web,creation_web,summary_web,
            type_web, style_web, technique_web,
            entry_web, nationality_web, dim_web,
            weight_web, image_web, history_web,

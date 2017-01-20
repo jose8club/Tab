@@ -137,7 +137,7 @@ public class TabsActivity extends AppCompatActivity {
                         //Carga de los datos
                         String [] obra_arte = getObraLocal(serie);
 
-                        Toast.makeText(getApplicationContext(),"Creacion en: "+ obra_arte[3],Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),"Creacion en: "+ obra_arte[3],Toast.LENGTH_LONG).show();
 
                         LocalFragment.local_txt_name.setText(obra_arte[1]);
                         LocalFragment.local_txt_author.setText(obra_arte[2]);
@@ -364,13 +364,13 @@ public class TabsActivity extends AppCompatActivity {
     public String[] getObraLocal(String pk) {
 
         // Uso de la base de datos Local
-        Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
         //Se crea la instancia
         DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
         db.open();
         String [] obra_arte = db.search(pk);
         db.close();
-        Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
 
         return obra_arte;
 
