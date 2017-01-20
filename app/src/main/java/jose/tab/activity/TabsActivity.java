@@ -16,11 +16,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -31,6 +28,7 @@ import jose.tab.fragments.LocalFragment;
 import jose.tab.fragments.NfcFragment;
 import jose.tab.fragments.WebFragment;
 import jose.tab.R;
+import jose.tab.service.DatabaseAccess;
 
 
 public class TabsActivity extends AppCompatActivity {
@@ -82,7 +80,6 @@ public class TabsActivity extends AppCompatActivity {
      */
     public static String serie;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +130,28 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
                         tabLayout.getTabAt(1).getIcon().setAlpha(255);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
+
+                        Toast.makeText(getApplicationContext(),serie,Toast.LENGTH_LONG).show();
+
+
+                        //Carga de los datos
+                        String [] obra_arte = getObraLocal(serie);
+
+                        Toast.makeText(getApplicationContext(),"Creacion en: "+ obra_arte[3],Toast.LENGTH_LONG).show();
+
+                        LocalFragment.local_txt_name.setText(obra_arte[1]);
+                        LocalFragment.local_txt_author.setText(obra_arte[2]);
+                        LocalFragment.local_txt_creation.setText(obra_arte[3]);
+                        LocalFragment.local_summary = obra_arte[4];
+                        LocalFragment.local_txt_type.setText(obra_arte[5]);
+                        LocalFragment.local_txt_style.setText(obra_arte[6]);
+                        LocalFragment.local_txt_technique.setText(obra_arte[7]);
+                        LocalFragment.local_txt_entry.setText(obra_arte[8]);
+                        LocalFragment.local_txt_nationality.setText(obra_arte[9]);
+                        LocalFragment.local_txt_dim.setText(obra_arte[10]);
+                        LocalFragment.local_txt_weight.setText(obra_arte[11]);
+                        LocalFragment.local_image = obra_arte[12];
+
                         break;
                     case 2:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
@@ -249,7 +268,7 @@ public class TabsActivity extends AppCompatActivity {
                 NfcFragment.nfc_txt_name.setText(exit[0]);
                 NfcFragment.nfc_txt_author.setText(exit[1]);
                 NfcFragment.nfc_txt_creation.setText(exit[2]);
-                Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
 
             }
 
@@ -315,18 +334,14 @@ public class TabsActivity extends AppCompatActivity {
         finish();
     }
 
-
-
     /**
      * Metodo para establecer cada icono en cada tab disponible
      */
     private void setupTabIcons() {
-
         // Establece Iconos
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-
     }
 
     /**
@@ -339,6 +354,26 @@ public class TabsActivity extends AppCompatActivity {
         adapter.addFrag(new LocalFragment(), "APP");
         adapter.addFrag(new WebFragment(), "WEB");
         viewPager.setAdapter(adapter);
+    }
+
+    /**
+     * Usando la Primary key se llama a los dos programas que invocan a la base de datos local
+     * almacenada en assets
+     * @param pk
+     */
+    public String[] getObraLocal(String pk) {
+
+        // Uso de la base de datos Local
+        Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
+        //Se crea la instancia
+        DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
+        db.open();
+        String [] obra_arte = db.search(pk);
+        db.close();
+        Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
+
+        return obra_arte;
+
     }
 
     /**

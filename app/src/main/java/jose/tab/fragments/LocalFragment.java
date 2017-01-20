@@ -2,6 +2,7 @@ package jose.tab.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,15 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import jose.tab.R;
-import jose.tab.activity.TabsActivity;
+
 
 public class LocalFragment extends Fragment{
 
     /**
      * Textos de la base de datos
      */
-    TextView local_txt_name, local_txt_author, local_txt_creation,
+    public static TextView local_txt_name, local_txt_author, local_txt_creation,
              local_txt_type, local_txt_style, local_txt_technique,
              local_txt_entry, local_txt_nationality, local_txt_dim,
              local_txt_weight;
@@ -34,6 +37,31 @@ public class LocalFragment extends Fragment{
      * Boton de imagen
      */
     Button local_btn_image;
+
+    /**
+     * URL del servidor web a usar
+     */
+    private static final String URL = "http://jose8android.esy.es/";
+
+    /**
+     * URL de la Imagen
+     */
+    private static final String IMG = URL + "obras/imagenes/";
+
+    /**
+     * Dialog de carga de los datos
+     */
+    public static ProgressDialog load;
+
+    /**
+     * Es el Primary key usado desde el NFC
+     */
+    String PK;
+
+    /**
+     * String usados para resumen y local
+     */
+    public static String local_summary, local_image;
 
     public LocalFragment() {
         // Required empty public constructor
@@ -63,6 +91,24 @@ public class LocalFragment extends Fragment{
         local_txt_dim = (TextView)view.findViewById(R.id.local_txt_dim);
         local_txt_weight = (TextView)view.findViewById(R.id.local_txt_weight);
 
+        /*
+        //Primary Key asegurada
+        PK = TabsActivity.serie;
+
+        //Se crea la instancia
+        a db = a.getInstance(getContext());
+        modal(PK);
+
+        //Carga de la informacion
+        load = new ProgressDialog(getActivity());
+        load.setTitle("Carga de Información Local");
+        load.setMessage("Espere, cargando informacion");
+        load.setCancelable(false);
+
+        //Carga de los datos
+        getObraLocal(PK, db);
+        */
+
         //botones inicialiados
 
         //1) Boton resumen local
@@ -75,17 +121,18 @@ public class LocalFragment extends Fragment{
                     @Override
                     public void run() {
                         local_btn_summary.getBackground().setAlpha(255);
-                         /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
-                        /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
                         final View sumView = inflater.inflate(R.layout.dialog_summary,null);
+                        final TextView dialog_txt = (TextView)sumView.findViewById(R.id.dialog_txt);
                         final Button dialog_btn_foot = (Button)sumView.findViewById(R.id.dialog_btn_foot);
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
+
+                        //Funcionamiento del dialog
+                        dialog_txt.setText(local_summary);
 
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +171,26 @@ public class LocalFragment extends Fragment{
 
                         /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
-                        final View sumView = inflater.inflate(R.layout.dialog_image,null);
-                        final Button dialog_btn_foot = (Button)sumView.findViewById(R.id.dialog_btn_foot);
+                        final View sumView = inflater.inflate(R.layout.dialog_image, null);
+                        final Button dialog_btn_foot = (Button) sumView.findViewById(R.id.dialog_btn_foot);
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialog.show();
+
+                        // Carga de la Imagen con Glide
+                        final ImageView dialog_img_local = (ImageView) sumView.findViewById(R.id.dialog_image_local);
+
+                        // Uso de Glide
+                        // load: se carga la imagen
+                        // crossFade: animacion de entrada
+                        // centerCrop: ocupa toda la pantalla de imgview
+                        // into: carga la imagen en la imageview
+                        Glide.with(getActivity())
+                                .load(IMG + local_image)
+                                .crossFade()
+                                .centerCrop()
+                                .into(dialog_img_local);
 
                         //Salir del dialog
                         dialog_btn_foot.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +207,7 @@ public class LocalFragment extends Fragment{
                                 view.postDelayed(clickButton, 80);
                             }
                         });
-                        final ImageView dialog_img_local = (ImageView)sumView.findViewById(R.id.dialog_image_local);
+
                         dialog_img_local.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

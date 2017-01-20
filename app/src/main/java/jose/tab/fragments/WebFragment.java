@@ -93,11 +93,6 @@ public class WebFragment extends Fragment {
     String AUDIO = URL + "obras/audio/";
 
     /**
-     * Dialog de carga de los datos
-     */
-    private ProgressDialog load;
-
-    /**
      * String de las respuestas obtenidas
      */
     String name_web,author_web,creation_web,summary_web,
@@ -110,6 +105,12 @@ public class WebFragment extends Fragment {
      * El mediaplayer para el audio
      */
     MediaPlayer player;
+
+    /**
+     * Dialog de carga de los datos
+     */
+    public ProgressDialog load;
+
 
     public WebFragment() {
         // Required empty public constructor
@@ -137,9 +138,10 @@ public class WebFragment extends Fragment {
         web_txt_dim = (TextView)view.findViewById(R.id.web_txt_dim);
         web_txt_weight = (TextView)view.findViewById(R.id.web_txt_weight);
 
+
         //Primary Key asegurada
         PK = TabsActivity.serie;
-        modal(PK);
+        //modal(PK);
 
         //Carga de la informacion
         load = new ProgressDialog(getActivity());

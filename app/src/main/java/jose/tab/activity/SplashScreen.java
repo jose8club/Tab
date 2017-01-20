@@ -15,8 +15,8 @@ import jose.tab.R;
 
 public class SplashScreen extends Activity {
 
-    // Establece la duracoin en pantalla del splash screen
-    private static final long SPLASH_SCREEN_DELAY = 2000;
+    // Establece la duracion en pantalla del splash screen
+    private static final long DURACION = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class SplashScreen extends Activity {
 
         setContentView(R.layout.activity_splash_screen);
 
-        TimerTask task = new TimerTask() {
+        TimerTask tarea = new TimerTask() {
             @Override
             public void run() {
 
@@ -45,8 +45,8 @@ public class SplashScreen extends Activity {
         };
 
         // Simula un proceso de carga en el inicio de la aplicación.
-        Timer timer = new Timer();
-        timer.schedule(task, SPLASH_SCREEN_DELAY);
+        Timer cronometro = new Timer();
+        cronometro.schedule(tarea, DURACION);
 
     }
 
