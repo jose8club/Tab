@@ -91,23 +91,6 @@ public class LocalFragment extends Fragment{
         local_txt_dim = (TextView)view.findViewById(R.id.local_txt_dim);
         local_txt_weight = (TextView)view.findViewById(R.id.local_txt_weight);
 
-        /*
-        //Primary Key asegurada
-        PK = TabsActivity.serie;
-
-        //Se crea la instancia
-        a db = a.getInstance(getContext());
-        modal(PK);
-
-        //Carga de la informacion
-        load = new ProgressDialog(getActivity());
-        load.setTitle("Carga de Información Local");
-        load.setMessage("Espere, cargando informacion");
-        load.setCancelable(false);
-
-        //Carga de los datos
-        getObraLocal(PK, db);
-        */
 
         //botones inicialiados
 

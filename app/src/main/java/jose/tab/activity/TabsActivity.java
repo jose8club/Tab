@@ -131,26 +131,7 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(1).getIcon().setAlpha(255);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
 
-                        Toast.makeText(getApplicationContext(),serie,Toast.LENGTH_LONG).show();
 
-
-                        //Carga de los datos
-                        String [] obra_arte = getObraLocal(serie);
-
-                        //Toast.makeText(getApplicationContext(),"Creacion en: "+ obra_arte[3],Toast.LENGTH_LONG).show();
-
-                        LocalFragment.local_txt_name.setText(obra_arte[1]);
-                        LocalFragment.local_txt_author.setText(obra_arte[2]);
-                        LocalFragment.local_txt_creation.setText(obra_arte[3]);
-                        LocalFragment.local_summary = obra_arte[4];
-                        LocalFragment.local_txt_type.setText(obra_arte[5]);
-                        LocalFragment.local_txt_style.setText(obra_arte[6]);
-                        LocalFragment.local_txt_technique.setText(obra_arte[7]);
-                        LocalFragment.local_txt_entry.setText(obra_arte[8]);
-                        LocalFragment.local_txt_nationality.setText(obra_arte[9]);
-                        LocalFragment.local_txt_dim.setText(obra_arte[10]);
-                        LocalFragment.local_txt_weight.setText(obra_arte[11]);
-                        LocalFragment.local_image = obra_arte[12];
 
                         break;
                     case 2:
@@ -240,6 +221,7 @@ public class TabsActivity extends AppCompatActivity {
             // si se encuentra el mensaje
             if(parcelables != null && parcelables.length > 0){
                 readTextFromMessage((NdefMessage) parcelables[0], serie);
+                getObraLocal(serie);
             }else{
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }
@@ -361,18 +343,30 @@ public class TabsActivity extends AppCompatActivity {
      * almacenada en assets
      * @param pk
      */
-    public String[] getObraLocal(String pk) {
+    private void getObraLocal(String pk) {
 
         // Uso de la base de datos Local
-        //Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
-        //Se crea la instancia
+        Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
+        //Se crea la instancia que en este caso no se crea preguntar al profesor jorge
         DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
         db.open();
         String [] obra_arte = db.search(pk);
         db.close();
-        //Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
 
-        return obra_arte;
+        LocalFragment.local_txt_name.setText(obra_arte[1]);
+        LocalFragment.local_txt_author.setText(obra_arte[2]);
+        LocalFragment.local_txt_creation.setText(obra_arte[3]);
+        LocalFragment.local_summary = obra_arte[4];
+        LocalFragment.local_txt_type.setText(obra_arte[5]);
+        LocalFragment.local_txt_style.setText(obra_arte[6]);
+        LocalFragment.local_txt_technique.setText(obra_arte[7]);
+        LocalFragment.local_txt_entry.setText(obra_arte[8]);
+        LocalFragment.local_txt_nationality.setText(obra_arte[9]);
+        LocalFragment.local_txt_dim.setText(obra_arte[10]);
+        LocalFragment.local_txt_weight.setText(obra_arte[11]);
+        LocalFragment.local_image = obra_arte[12];
+
 
     }
 
