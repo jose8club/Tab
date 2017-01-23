@@ -68,7 +68,7 @@ public class DatabaseAccess {
     }
 
     /**
-     * Busqueda de cada obra de arte deacuerdo a su idobra
+     * Busqueda de cada obra de arte de acuerdo a su idobra
      * @param idobra
      * @return
      */
@@ -83,10 +83,10 @@ public class DatabaseAccess {
             }
             datos[13]= "Encontrado";
         }else{
-            datos[13] = q;
+            datos[13] = registros.getString(1) +" --- "+q;
             //datos[13]= "No se encontro a "+idobra;
         }
-        database.close();
+        registros.close();
         return datos;
     }
 }

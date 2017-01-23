@@ -352,7 +352,7 @@ public class TabsActivity extends AppCompatActivity {
         String [] obra_arte = db.search(pk);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Resultado: " + obra_arte[13],  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Resultado de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
 
         LocalFragment.local_txt_name.setText(obra_arte[1]);
         LocalFragment.local_txt_author.setText(obra_arte[2]);
