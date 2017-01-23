@@ -130,9 +130,6 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
                         tabLayout.getTabAt(1).getIcon().setAlpha(255);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
-
-
-
                         break;
                     case 2:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
@@ -350,9 +347,12 @@ public class TabsActivity extends AppCompatActivity {
         //Se crea la instancia que en este caso no se crea preguntar al profesor jorge
         DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
         db.open();
+        String open = db.isOpen();
+        Toast.makeText(this, "Condicion: " + open,  Toast.LENGTH_LONG).show();
         String [] obra_arte = db.search(pk);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Resultado: " + obra_arte[13],  Toast.LENGTH_LONG).show();
 
         LocalFragment.local_txt_name.setText(obra_arte[1]);
         LocalFragment.local_txt_author.setText(obra_arte[2]);

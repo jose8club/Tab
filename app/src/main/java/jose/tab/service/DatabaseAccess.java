@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,18 @@ public class DatabaseAccess {
     }
 
     /**
+     * Verifica si se abrio la base de datos
+     * @return
+     */
+    public String isOpen(){
+        if(this.database.isOpen()){
+            return "Abierto";
+        }else{
+            return "Cerrado";
+        }
+    }
+
+    /**
      * Close the database connection.
      */
     public void close() {
@@ -70,8 +83,8 @@ public class DatabaseAccess {
             }
             datos[13]= "Encontrado";
         }else{
-
-            datos[13]= "No se encontro a "+idobra;
+            datos[13] = q;
+            //datos[13]= "No se encontro a "+idobra;
         }
         database.close();
         return datos;
