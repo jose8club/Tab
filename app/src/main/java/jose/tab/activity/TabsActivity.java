@@ -80,6 +80,12 @@ public class TabsActivity extends AppCompatActivity {
      */
     public static String serie;
 
+
+    /**
+     * String usado en el PK
+     */
+    public String idobra;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -341,18 +347,23 @@ public class TabsActivity extends AppCompatActivity {
      * @param pk
      */
     private void getObraLocal(String pk) {
-
+        final String Primary = pk;
         // Uso de la base de datos Local
         Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
         //Se crea la instancia que en este caso no se crea preguntar al profesor jorge
         DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
         db.open();
-        String open = db.isOpen();
-        Toast.makeText(this, "Condicion: " + open,  Toast.LENGTH_LONG).show();
-        String [] obra_arte = db.search(pk);
+        ArrayList<String> list = db.list_id();
+        for (int i = 0; i<list.size(); i++){
+            if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
+                idobra = list.get(i);
+            }
+        }
+        Toast.makeText(this, "idobra: " + idobra,  Toast.LENGTH_LONG).show();
+        String [] obra_arte = db.search(idobra);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Resultado de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Cantidad de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
 
         LocalFragment.local_txt_name.setText(obra_arte[1]);
         LocalFragment.local_txt_author.setText(obra_arte[2]);

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class NfcFragment extends Fragment {
      * TextView del NFC: Nombre, Autor y Fecha de Creacion
      */
     public static TextView nfc_txt_name, nfc_txt_author, nfc_txt_creation;
+
 
     public NfcFragment() {
         // Required empty public constructor
@@ -48,6 +50,8 @@ public class NfcFragment extends Fragment {
         nfc_txt_name = (TextView)view.findViewById(R.id.nfc_txt_name);
         nfc_txt_author = (TextView)view.findViewById(R.id.nfc_author_txt);
         nfc_txt_creation = (TextView)view.findViewById(R.id.nfc_txt_creation);
+
+
         return view;
     }
 }

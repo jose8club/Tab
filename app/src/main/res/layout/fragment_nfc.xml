@@ -194,6 +194,7 @@
                     android:singleLine="true"
                     android:fontFamily="@string/font_fontFamily_medium"
                     android:textStyle="italic|normal"/>
+
             </LinearLayout>
 
             <TextView
