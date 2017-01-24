@@ -224,7 +224,7 @@ public class TabsActivity extends AppCompatActivity {
             // si se encuentra el mensaje
             if(parcelables != null && parcelables.length > 0){
                 readTextFromMessage((NdefMessage) parcelables[0], serie);
-                //getObraLocal(serie);
+                getObraLocal(serie);
             }else{
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }
@@ -357,7 +357,7 @@ public class TabsActivity extends AppCompatActivity {
         // me da el NFC y poner eso en el metodo search que buscara obra y traera sus datos para ser mostrados
         ArrayList<String> list = db.list_id();
         for (int i = 0; i<list.size(); i++){
-            if(pk.equals(list.get(i))){
+            if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
                 idobra = list.get(i);
             }
         }
@@ -369,7 +369,7 @@ public class TabsActivity extends AppCompatActivity {
         // Ignoro la razon de esto
         // Mañana probar que desde la lista obtener el ID y desde ahi usar el search
         // Podria funcionar
-        String [] obra_arte = db.search(pk);
+        String [] obra_arte = db.search(idobra);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Cantidad de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
