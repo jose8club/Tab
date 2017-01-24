@@ -3,6 +3,7 @@ package jose.tab.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +16,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import jose.tab.R;
+import jose.tab.activity.TabsActivity;
+import jose.tab.service.BD;
 
 
 public class LocalFragment extends Fragment{
@@ -49,14 +59,20 @@ public class LocalFragment extends Fragment{
     private static final String IMG = URL + "obras/imagenes/";
 
     /**
-     * Dialog de carga de los datos
-     */
-    public static ProgressDialog load;
-
-    /**
      * Es el Primary key usado desde el NFC
      */
     String PK;
+
+    /**
+     * Es la base de datos a usar
+     */
+    BD db;
+
+
+    /**
+     * Arreglo de todos los retornos de datos por fila
+     */
+    String [] fila;
 
     /**
      * String usados para resumen y local
@@ -90,6 +106,14 @@ public class LocalFragment extends Fragment{
         local_txt_nationality = (TextView)view.findViewById(R.id.local_txt_nationality);
         local_txt_dim = (TextView)view.findViewById(R.id.local_txt_dim);
         local_txt_weight = (TextView)view.findViewById(R.id.local_txt_weight);
+        //Primary Key asegurada
+        //PK = TabsActivity.serie;
+        //db = new BD(getContext(),null,null,1);
+
+        //CargaDatos(view);
+
+        //CargaSQLite(PK);
+
 
 
         //botones inicialiados

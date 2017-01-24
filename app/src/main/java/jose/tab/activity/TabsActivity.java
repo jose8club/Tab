@@ -20,6 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import jose.tab.fragments.LocalFragment;
 import jose.tab.fragments.NfcFragment;
 import jose.tab.fragments.WebFragment;
 import jose.tab.R;
+import jose.tab.service.BD;
 import jose.tab.service.DatabaseAccess;
 
 
@@ -86,10 +91,20 @@ public class TabsActivity extends AppCompatActivity {
      */
     public String idobra;
 
+    BD db;
+    ArrayList<String> id;
+    String [] fila;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
+
+        //Creacion de base de datos SQLite
+        db = new BD(getApplicationContext(),null,null,1);
+
+        //Fin de creacion de base de datos
+
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter==null){
@@ -131,11 +146,17 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(255);
                         tabLayout.getTabAt(1).getIcon().setAlpha(128);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
+                        try{
+                            cargaDatos();
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
                         break;
                     case 1:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
                         tabLayout.getTabAt(1).getIcon().setAlpha(255);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
+                        cargaSQLite(serie);
                         break;
                     case 2:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
@@ -150,6 +171,65 @@ public class TabsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * Se usa la serie que se obtuvo
+     * @param serie
+     */
+    private void cargaSQLite(String serie) {
+        id = db.lista_id();
+        String [] ids = id.toArray(new String[id.size()]);
+        fila = db.buscar(serie.toString());
+        LocalFragment.local_txt_name.setText(fila[1]);
+        LocalFragment.local_txt_author.setText(fila[2]);
+        LocalFragment.local_txt_creation.setText(fila[3]);
+        LocalFragment.local_summary = fila[4];
+        LocalFragment.local_txt_type.setText(fila[5]);
+        LocalFragment.local_txt_style.setText(fila[6]);
+        LocalFragment.local_txt_technique.setText(fila[7]);
+        LocalFragment.local_txt_entry.setText(fila[8]);
+        LocalFragment.local_txt_nationality.setText(fila[9]);
+        LocalFragment.local_txt_dim.setText(fila[10]);
+        LocalFragment.local_txt_weight.setText(fila[11]);
+        LocalFragment.local_image = fila[12];
+    }
+
+
+    /**
+     * Cargar Datos desde data.txt
+     */
+    private void cargaDatos() throws IOException{
+        List<String> listado = new ArrayList<String>();
+        String linea;
+
+        InputStream is = this.getResources().openRawResource(R.raw.data);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        if(is!=null){
+            while ((linea=reader.readLine())!=null){
+                listado.add(linea.split(";")[0]);
+                // Uso de SQLite
+
+                String mensaje =db.guardar(linea.split(";")[0],
+                        linea.split(";")[1],
+                        linea.split(";")[2],
+                        linea.split(";")[3],
+                        linea.split(";")[4],
+                        linea.split(";")[5],
+                        linea.split(";")[6],
+                        linea.split(";")[7],
+                        linea.split(";")[8],
+                        linea.split(";")[9],
+                        linea.split(";")[10],
+                        linea.split(";")[11],
+                        linea.split(";")[12]);
+                Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        is.close();
+        Toast.makeText(this,"Carga: "+listado.size(),Toast.LENGTH_LONG).show();
+        //String [] datos = listado.toArray(new String[listado.size()]);
     }
 
 
@@ -224,7 +304,8 @@ public class TabsActivity extends AppCompatActivity {
             // si se encuentra el mensaje
             if(parcelables != null && parcelables.length > 0){
                 readTextFromMessage((NdefMessage) parcelables[0], serie);
-                getObraLocal(serie);
+                //String idfinal = serie.toString();
+                //getObraLocal(idfinal);
             }else{
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }
@@ -344,8 +425,8 @@ public class TabsActivity extends AppCompatActivity {
     /**
      * Usando la Primary key se llama a los dos programas que invocan a la base de datos local
      * almacenada en assets
-     * @param pk
      */
+    /*
     private void getObraLocal(String pk) {
         final String Primary = pk;
         // Uso de la base de datos Local
@@ -355,12 +436,13 @@ public class TabsActivity extends AppCompatActivity {
         db.open();
         ArrayList<String> list = db.list_id();
         for (int i = 0; i<list.size(); i++){
-            if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
+            if(pk == list.get(i)){
+            //if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
                 idobra = list.get(i);
             }
         }
         Toast.makeText(this, "idobra: " + idobra,  Toast.LENGTH_LONG).show();
-        String [] obra_arte = db.search(idobra);
+        String [] obra_arte = db.search(pk);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Cantidad de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
@@ -379,6 +461,8 @@ public class TabsActivity extends AppCompatActivity {
         LocalFragment.local_image = obra_arte[12];
 
     }
+    */
+
 
     /**
      * Clase que permite adaptar los fragmentos en la activity
