@@ -367,6 +367,7 @@ public class TabsActivity extends AppCompatActivity {
         // En la base de datos externa es lo que funciona
         // Ignoro la razon de esto
         // Mañana probar que desde la lista obtener el ID y desde ahi usar el search
+        // Podria funcionar
         String [] obra_arte = db.search(list.get(1));
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
