@@ -347,28 +347,19 @@ public class TabsActivity extends AppCompatActivity {
      * @param pk
      */
     private void getObraLocal(String pk) {
+        final String Primary = pk;
         // Uso de la base de datos Local
         Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
         //Se crea la instancia que en este caso no se crea preguntar al profesor jorge
         DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
         db.open();
-        // Como no funciona poner el PK de forma directa uso
-        // el metodo de list_id para buscar los PK e igularlo con lo que
-        // me da el NFC y poner eso en el metodo search que buscara obra y traera sus datos para ser mostrados
         ArrayList<String> list = db.list_id();
         for (int i = 0; i<list.size(); i++){
             if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
                 idobra = list.get(i);
             }
         }
-        Toast.makeText(this, "idobra uno: " + pk,  Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "idobra: " + list.get(1),  Toast.LENGTH_LONG).show();
-        // Metodo que traera los datos a la aplicacion funciono en pruebas anterirores
-        // Se puso por el momento que uno de los valores de la base de datos un ID de NFC
-        // En la base de datos externa es lo que funciona
-        // Ignoro la razon de esto
-        // Mañana probar que desde la lista obtener el ID y desde ahi usar el search
-        // Podria funcionar
+        Toast.makeText(this, "idobra: " + idobra,  Toast.LENGTH_LONG).show();
         String [] obra_arte = db.search(idobra);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
@@ -386,7 +377,6 @@ public class TabsActivity extends AppCompatActivity {
         LocalFragment.local_txt_dim.setText(obra_arte[10]);
         LocalFragment.local_txt_weight.setText(obra_arte[11]);
         LocalFragment.local_image = obra_arte[12];
-
 
     }
 

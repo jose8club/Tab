@@ -18,7 +18,8 @@ public class DatabaseAccess {
     private static DatabaseAccess instance;
 
     /**
-     * Constructor privado para evitar creacion de clases externas
+     * Constructor para evitar creacion de clases externas
+     *
      * @param context
      */
     public DatabaseAccess(Context context) {
