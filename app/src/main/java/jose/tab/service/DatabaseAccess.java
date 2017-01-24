@@ -21,7 +21,7 @@ public class DatabaseAccess {
      * Constructor privado para evitar creacion de clases externas
      * @param context
      */
-    private DatabaseAccess(Context context) {
+    public DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
     }
 

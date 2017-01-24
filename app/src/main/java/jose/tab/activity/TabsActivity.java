@@ -224,7 +224,7 @@ public class TabsActivity extends AppCompatActivity {
             // si se encuentra el mensaje
             if(parcelables != null && parcelables.length > 0){
                 readTextFromMessage((NdefMessage) parcelables[0], serie);
-                getObraLocal(serie);
+                //getObraLocal(serie);
             }else{
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }
@@ -361,14 +361,15 @@ public class TabsActivity extends AppCompatActivity {
                 idobra = list.get(i);
             }
         }
-        Toast.makeText(this, "idobra: " + idobra,  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "idobra uno: " + pk,  Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "idobra: " + list.get(1),  Toast.LENGTH_LONG).show();
         // Metodo que traera los datos a la aplicacion funciono en pruebas anterirores
         // Se puso por el momento que uno de los valores de la base de datos un ID de NFC
         // En la base de datos externa es lo que funciona
         // Ignoro la razon de esto
         // Mañana probar que desde la lista obtener el ID y desde ahi usar el search
         // Podria funcionar
-        String [] obra_arte = db.search(list.get(1));
+        String [] obra_arte = db.search(pk);
         db.close();
         Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
         Toast.makeText(this, "Cantidad de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
