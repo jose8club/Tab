@@ -18,16 +18,15 @@ public class DatabaseAccess {
     private static DatabaseAccess instance;
 
     /**
-     * Private constructor to aboid object creation from outside classes.
-     *
+     * Constructor privado para evitar creacion de clases externas
      * @param context
      */
-    public DatabaseAccess(Context context) {
+    private DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
     }
 
     /**
-     * Return a singleton instance of DatabaseAccess.
+     * Retorna una instancia singleton de DatabaseAccess.
      *
      * @param context the Context
      * @return the instance of DabaseAccess
@@ -40,7 +39,7 @@ public class DatabaseAccess {
     }
 
     /**
-     * Open the database connection.
+     * Abre la conexion a la base de datos
      */
     public void open() {
         this.database = openHelper.getWritableDatabase();
@@ -48,7 +47,7 @@ public class DatabaseAccess {
 
 
     /**
-     * Close the database connection.
+     * Cierra la conexion a la base de datos
      */
     public void close() {
         if (database != null) {
