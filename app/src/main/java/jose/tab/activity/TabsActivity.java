@@ -33,7 +33,7 @@ import jose.tab.fragments.NfcFragment;
 import jose.tab.fragments.WebFragment;
 import jose.tab.R;
 import jose.tab.service.BD;
-import jose.tab.service.DatabaseAccess;
+
 
 
 public class TabsActivity extends AppCompatActivity {
