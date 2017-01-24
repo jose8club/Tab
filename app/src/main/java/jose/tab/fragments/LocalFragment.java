@@ -59,22 +59,6 @@ public class LocalFragment extends Fragment{
     private static final String IMG = URL + "obras/imagenes/";
 
     /**
-     * Es el Primary key usado desde el NFC
-     */
-    String PK;
-
-    /**
-     * Es la base de datos a usar
-     */
-    BD db;
-
-
-    /**
-     * Arreglo de todos los retornos de datos por fila
-     */
-    String [] fila;
-
-    /**
      * String usados para resumen y local
      */
     public static String local_summary, local_image;
@@ -106,15 +90,6 @@ public class LocalFragment extends Fragment{
         local_txt_nationality = (TextView)view.findViewById(R.id.local_txt_nationality);
         local_txt_dim = (TextView)view.findViewById(R.id.local_txt_dim);
         local_txt_weight = (TextView)view.findViewById(R.id.local_txt_weight);
-        //Primary Key asegurada
-        //PK = TabsActivity.serie;
-        //db = new BD(getContext(),null,null,1);
-
-        //CargaDatos(view);
-
-        //CargaSQLite(PK);
-
-
 
         //botones inicialiados
 
@@ -173,10 +148,7 @@ public class LocalFragment extends Fragment{
                     @Override
                     public void run() {
                         local_btn_image.getBackground().setAlpha(255);
-                        /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
-                        /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
                         final View sumView = inflater.inflate(R.layout.dialog_image, null);
                         final Button dialog_btn_foot = (Button) sumView.findViewById(R.id.dialog_btn_foot);
@@ -214,13 +186,6 @@ public class LocalFragment extends Fragment{
                                 view.postDelayed(clickButton, 80);
                             }
                         });
-
-                        dialog_img_local.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                modal("Imagen Local");
-                            }
-                        });
                     }
                 };
                 view.postDelayed(clickButton, 80);
@@ -229,12 +194,4 @@ public class LocalFragment extends Fragment{
         return view;
     }
 
-    /**
-     * Metodo temporal para probar botones
-     * sera quitado pronto
-     * @param resumen
-     */
-    private void modal(String resumen) {
-        Toast.makeText(getActivity(), resumen, Toast.LENGTH_LONG).show();
-    }
 }

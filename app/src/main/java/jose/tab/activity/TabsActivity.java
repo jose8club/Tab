@@ -71,11 +71,6 @@ public class TabsActivity extends AppCompatActivity {
     public static final String ERROR_LECT = "No se puede leer NFC";
 
     /**
-     * Mensajes NFC
-     */
-    public static final String INTENTO_NFC = "Intento de obtener NFC";
-
-    /**
      * Adaptador NFC, usado para comprobar si posee NFC el equipo o no
      */
     NfcAdapter nfcAdapter;
@@ -87,12 +82,13 @@ public class TabsActivity extends AppCompatActivity {
 
 
     /**
-     * String usado en el PK
+     * Uso de base de datos SQLite
      */
-    public String idobra;
-
     BD db;
-    ArrayList<String> id;
+
+    /**
+     * Cadena de string que tendra los datos de la obra seleccionada
+     */
     String [] fila;
 
     @Override
@@ -102,9 +98,7 @@ public class TabsActivity extends AppCompatActivity {
 
         //Creacion de base de datos SQLite
         db = new BD(getApplicationContext(),null,null,1);
-
-        //Fin de creacion de base de datos
-
+        //Fin de creacion de base de datos SQLite
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter==null){
@@ -174,12 +168,11 @@ public class TabsActivity extends AppCompatActivity {
     }
 
     /**
-     * Se usa la serie que se obtuvo
+     * Se usa la serie que se obtuvo para buscar la obra de arte desde el numero de serie obtenido
+     * desde el Tag NFC
      * @param serie
      */
     private void cargaSQLite(String serie) {
-        id = db.lista_id();
-        String [] ids = id.toArray(new String[id.size()]);
         fila = db.buscar(serie.toString());
         LocalFragment.local_txt_name.setText(fila[1]);
         LocalFragment.local_txt_author.setText(fila[2]);
@@ -200,16 +193,17 @@ public class TabsActivity extends AppCompatActivity {
      * Cargar Datos desde data.txt
      */
     private void cargaDatos() throws IOException{
-        List<String> listado = new ArrayList<String>();
+        // Linea que recorrera el archivo
         String linea;
-
+        // Se usa el inputstream para cargar el archivo
+        // Y el BufferedReader para la lectura de ese archivo
         InputStream is = this.getResources().openRawResource(R.raw.data);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        // Si el archivo no es nulo se puede leer
         if(is!=null){
+            // Mientras el archivo tenga lineas que leerse se continuara leyendo
             while ((linea=reader.readLine())!=null){
-                listado.add(linea.split(";")[0]);
-                // Uso de SQLite
-
+                // Uso de SQLite para guardar los datos de cada linea de data.txt como una fila separada
                 String mensaje =db.guardar(linea.split(";")[0],
                         linea.split(";")[1],
                         linea.split(";")[2],
@@ -223,15 +217,10 @@ public class TabsActivity extends AppCompatActivity {
                         linea.split(";")[10],
                         linea.split(";")[11],
                         linea.split(";")[12]);
-                Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_SHORT).show();
-
             }
         }
         is.close();
-        Toast.makeText(this,"Carga: "+listado.size(),Toast.LENGTH_LONG).show();
-        //String [] datos = listado.toArray(new String[listado.size()]);
     }
-
 
     /**
      * Resume la actividad manteniendo la consistencia
@@ -287,7 +276,6 @@ public class TabsActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)){
-            Toast.makeText(this,INTENTO_NFC, Toast.LENGTH_LONG).show();
             // obtener el numero de serie del tag qu es crucial para el
             // resto del proceso porque actua como PK de las bases de datos
             byte[] tagId = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
@@ -304,8 +292,6 @@ public class TabsActivity extends AppCompatActivity {
             // si se encuentra el mensaje
             if(parcelables != null && parcelables.length > 0){
                 readTextFromMessage((NdefMessage) parcelables[0], serie);
-                //String idfinal = serie.toString();
-                //getObraLocal(idfinal);
             }else{
                 Toast.makeText(this,ERROR_MSGS, Toast.LENGTH_LONG).show();
             }
@@ -334,10 +320,7 @@ public class TabsActivity extends AppCompatActivity {
                 NfcFragment.nfc_txt_name.setText(exit[0]);
                 NfcFragment.nfc_txt_author.setText(exit[1]);
                 NfcFragment.nfc_txt_creation.setText(exit[2]);
-                //Toast.makeText(this, "Número de serie: " + serie,  Toast.LENGTH_LONG).show();
-
             }
-
         }else {
             Toast.makeText(this,ERROR_LECT, Toast.LENGTH_LONG).show();
         }
@@ -380,20 +363,20 @@ public class TabsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         /*
         if (id == android.R.id.home) {
             onBackPressed();  return true;
         }
         */
         if(id == R.id.action_settings){
-            //Toast.makeText(this,"Hola",Toast.LENGTH_LONG).show();
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Se usa el boton de back para salir de la aplicacion y volver a usar el splashscreen al entrar
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -423,48 +406,6 @@ public class TabsActivity extends AppCompatActivity {
     }
 
     /**
-     * Usando la Primary key se llama a los dos programas que invocan a la base de datos local
-     * almacenada en assets
-     */
-    /*
-    private void getObraLocal(String pk) {
-        final String Primary = pk;
-        // Uso de la base de datos Local
-        Toast.makeText(this, "PK: " + pk,  Toast.LENGTH_LONG).show();
-        //Se crea la instancia que en este caso no se crea preguntar al profesor jorge
-        DatabaseAccess db = DatabaseAccess.getInstance(getApplicationContext());
-        db.open();
-        ArrayList<String> list = db.list_id();
-        for (int i = 0; i<list.size(); i++){
-            if(pk == list.get(i)){
-            //if(pk.substring(3,5).equals(list.get(i).substring(3,5))){
-                idobra = list.get(i);
-            }
-        }
-        Toast.makeText(this, "idobra: " + idobra,  Toast.LENGTH_LONG).show();
-        String [] obra_arte = db.search(pk);
-        db.close();
-        Toast.makeText(this, "Nombre: " + obra_arte[1],  Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Cantidad de cursor: " + obra_arte[13],  Toast.LENGTH_LONG).show();
-
-        LocalFragment.local_txt_name.setText(obra_arte[1]);
-        LocalFragment.local_txt_author.setText(obra_arte[2]);
-        LocalFragment.local_txt_creation.setText(obra_arte[3]);
-        LocalFragment.local_summary = obra_arte[4];
-        LocalFragment.local_txt_type.setText(obra_arte[5]);
-        LocalFragment.local_txt_style.setText(obra_arte[6]);
-        LocalFragment.local_txt_technique.setText(obra_arte[7]);
-        LocalFragment.local_txt_entry.setText(obra_arte[8]);
-        LocalFragment.local_txt_nationality.setText(obra_arte[9]);
-        LocalFragment.local_txt_dim.setText(obra_arte[10]);
-        LocalFragment.local_txt_weight.setText(obra_arte[11]);
-        LocalFragment.local_image = obra_arte[12];
-
-    }
-    */
-
-
-    /**
      * Clase que permite adaptar los fragmentos en la activity
      */
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -490,11 +431,9 @@ public class TabsActivity extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
-            //return null;
         }
 
     }

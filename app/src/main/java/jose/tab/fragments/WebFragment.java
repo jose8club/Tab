@@ -141,7 +141,6 @@ public class WebFragment extends Fragment {
 
         //Primary Key asegurada
         PK = TabsActivity.serie;
-        //modal(PK);
 
         //Carga de la informacion
         load = new ProgressDialog(getActivity());
@@ -209,8 +208,6 @@ public class WebFragment extends Fragment {
                     @Override
                     public void run() {
                         web_btn_image.getBackground().setAlpha(255);
-                        /*Funcionamiento dialog*/
-                        /*Fin funcionamiento dialog*/
 
                         /*Creacion del dialog*/
                         AlertDialog.Builder sum = new AlertDialog.Builder(getContext());
@@ -528,12 +525,4 @@ public class WebFragment extends Fragment {
         player = null;
     }
 
-    /**
-     * Metodo temporal para probar botones
-     * sera quitado pronto
-     * @param resumen
-     */
-    private void modal(String resumen) {
-        Toast.makeText(getActivity(), resumen, Toast.LENGTH_LONG).show();
-    }
 }
