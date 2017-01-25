@@ -3,6 +3,7 @@ package jose.tab.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -141,6 +142,7 @@ public class WebFragment extends Fragment {
 
         //Primary Key asegurada
         PK = TabsActivity.serie;
+
 
         //Carga de la informacion
         load = new ProgressDialog(getActivity());

@@ -1,6 +1,7 @@
 package jose.tab.activity;
 
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -46,7 +48,7 @@ public class TabsActivity extends AppCompatActivity {
     /**
      * Layout de la tabla
      */
-    private TabLayout tabLayout;
+    public TabLayout tabLayout;
 
     /**
      * Vista de la pestania
@@ -150,7 +152,10 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
                         tabLayout.getTabAt(1).getIcon().setAlpha(255);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
+
+                        // Carga de los datos SQLite en pantalla
                         cargaSQLite(serie);
+
                         break;
                     case 2:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
