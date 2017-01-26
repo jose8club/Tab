@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class BD extends SQLiteOpenHelper {
     public BD(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "tesis", factory, 1);
+        super(context, "u876064244_obras", factory, 1);
     }
 
     @Override
@@ -107,22 +107,5 @@ public class BD extends SQLiteOpenHelper {
         }
         database.close();
         return datos;
-    }
-    /**
-     * Llena la lista con los ID de cada de arte
-     * @return
-     */
-    public ArrayList<String> lista_id() {
-        ArrayList<String> lista = new ArrayList<>();
-        SQLiteDatabase database = this.getWritableDatabase();
-        String q = "SELECT * FROM obra";
-        Cursor registros = database.rawQuery(q, null);
-        if(registros.moveToFirst()){
-            do{
-                lista.add(registros.getString(0));
-                //lista.add(registros.getString(1));
-            }while(registros.moveToNext());
-        }
-        return lista;
     }
 }
