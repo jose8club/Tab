@@ -102,14 +102,17 @@ public class TabsActivity extends AppCompatActivity {
         db = new BD(getApplicationContext(),null,null,1);
         //Fin de creacion de base de datos SQLite
 
+        // Se define adaptador NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter==null){
-            //detecta si el dispositivo tiene o no NFC
+            //detecta si el dispositivo tiene o no NFC, si no lo tiene lo
+            //saca de la aplicacion
             Toast.makeText(this, ERROR_NFC, Toast.LENGTH_LONG).show();
             finish();
         }
         if(!nfcAdapter.isEnabled()){
             //detecta si el dispositivo tiene activado su NFC
+            //sino lo saca de la aplicacion
             Toast.makeText(this,ERROR_ENABLE, Toast.LENGTH_LONG).show();
             finish();
         }
@@ -118,7 +121,9 @@ public class TabsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        //viewPager.setOffscreenPageLimit(0);
+        // Esto para evitar el detalle de que el tab(0) se quede
+        // vacio al volver del tab(2)
+        viewPager.setOffscreenPageLimit(2);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -162,6 +167,9 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);
                         tabLayout.getTabAt(1).getIcon().setAlpha(128);
                         tabLayout.getTabAt(2).getIcon().setAlpha(255);
+                        // Esto es para que cargue los datos web una vez
+                        // llegado al tab(2) y no antes como estaba visto
+                        WebFragment.getObra(serie);
                         break;
                 }
             }

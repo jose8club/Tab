@@ -76,7 +76,7 @@ public class WebFragment extends Fragment {
     /**
      * URL del servidor web a usar
      */
-    String URL = "http://jose8android.esy.es/";
+    public static String URL = "http://jose8android.esy.es/";
 
     /**
      * URL de la Imagen
@@ -110,7 +110,7 @@ public class WebFragment extends Fragment {
     /**
      * Dialog de carga de los datos
      */
-    public ProgressDialog load;
+    public static ProgressDialog load;
 
 
     public WebFragment() {
@@ -151,7 +151,7 @@ public class WebFragment extends Fragment {
         load.setCancelable(false);
 
         //Carga de los datos
-        getObra(PK);
+        //getObra(PK);
 
         //botones inicialiados
 
@@ -430,7 +430,7 @@ public class WebFragment extends Fragment {
      * en pantalla
      * @param pk
      */
-    private void getObra(String pk) {
+    public static void getObra(String pk) {
 
         // Carga de Dialog
         dialogOn();
@@ -494,12 +494,12 @@ public class WebFragment extends Fragment {
 
                 @Override
                 public void onFailure(retrofit2.Call<Obra> call, Throwable t) {
-                    Toast.makeText(getActivity(), "No se encontró información", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "No se encontró información", Toast.LENGTH_LONG).show();
                     dialogOff();
                 }
             });
         }catch (Exception e){
-            Toast.makeText(getActivity(), "La Aplicacion ha fracasado", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "La Aplicacion ha fracasado", Toast.LENGTH_LONG).show();
             dialogOff();
         }
     }
@@ -507,7 +507,7 @@ public class WebFragment extends Fragment {
     /**
      * Carga del dialog al momento de mostrar la informacion
      */
-    private void dialogOn() {
+    private static void dialogOn() {
         if (!load.isShowing())load.show();
     }
 
@@ -515,7 +515,7 @@ public class WebFragment extends Fragment {
      * Fin de dialog de carga
      * ocurre cuando se carga la informacion o cuando no encuentra nada
      */
-    private void dialogOff(){
+    private static void dialogOff(){
         if (load.isShowing())load.dismiss();
     }
 
