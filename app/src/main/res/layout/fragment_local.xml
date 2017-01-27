@@ -54,13 +54,13 @@
 
                 <TextView
                     android:id="@+id/local_txt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="277dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="false"
                     android:hint="Nombre Obra"
-                    android:maxLength="55"
+                    android:maxLength="255"
                     android:maxLines="3"
                     android:minLines="1"
                     android:paddingBottom="16dp"

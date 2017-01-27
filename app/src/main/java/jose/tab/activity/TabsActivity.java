@@ -206,12 +206,12 @@ public class TabsActivity extends AppCompatActivity {
 
 
     /**
-     * Cargar Datos desde data.txt
+     * Cargar Datos desde
      */
     private void cargaDatos() throws IOException{
         // Linea que recorrera el archivo
         String linea;
-        // Se usa el inputstream para cargar el archivo
+        // Se usa el inputstream para cargar el archivo data.csv
         // Y el BufferedReader para la lectura de ese archivo
         InputStream is = this.getResources().openRawResource(R.raw.data);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -219,7 +219,7 @@ public class TabsActivity extends AppCompatActivity {
         if(is!=null){
             // Mientras el archivo tenga lineas que leerse se continuara leyendo
             while ((linea=reader.readLine())!=null){
-                // Uso de SQLite para guardar los datos de cada linea de data.txt como una fila separada
+                // Uso de SQLite para guardar los datos de cada linea de  como una fila separada
                 String mensaje =db.guardar(linea.split(";")[0],
                         linea.split(";")[1],
                         linea.split(";")[2],
