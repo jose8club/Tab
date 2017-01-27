@@ -118,6 +118,7 @@ public class TabsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //viewPager.setOffscreenPageLimit(0);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -169,6 +170,8 @@ public class TabsActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
 
             }
+
+
         });
     }
 

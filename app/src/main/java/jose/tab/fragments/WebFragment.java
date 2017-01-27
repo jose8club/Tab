@@ -489,6 +489,7 @@ public class WebFragment extends Fragment {
 
                     // Apagar el dialog
                     dialogOff();
+
                 }
 
                 @Override
