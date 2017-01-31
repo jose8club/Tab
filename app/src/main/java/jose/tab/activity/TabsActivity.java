@@ -206,7 +206,7 @@ public class TabsActivity extends AppCompatActivity {
 
 
     /**
-     * Cargar Datos desde
+     * Cargar Datos desde data.csv
      */
     private void cargaDatos() throws IOException{
         // Linea que recorrera el archivo
