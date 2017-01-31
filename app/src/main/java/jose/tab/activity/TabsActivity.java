@@ -240,10 +240,13 @@ public class TabsActivity extends AppCompatActivity {
 
     /**
      * Resume la actividad manteniendo la consistencia
+     * y permitiendo que cada vez se detecte una nueva etiqueta se
+     * traslade al tab(0)
      */
     @Override
     protected void onResume() {
         super.onResume();
+        // Se retorna al tab(0) al etectar nueva imagen
         viewPager.setCurrentItem(0);
         if(!nfcAdapter.isEnabled()){
             //detecta si el dispositivo tiene activado su NFC
