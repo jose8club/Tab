@@ -148,11 +148,13 @@ public class TabsActivity extends AppCompatActivity {
                         tabLayout.getTabAt(0).getIcon().setAlpha(255);
                         tabLayout.getTabAt(1).getIcon().setAlpha(128);
                         tabLayout.getTabAt(2).getIcon().setAlpha(128);
+                        // Carga datos de SQLite
                         try{
                             cargaDatos();
                         }catch (IOException e){
                             e.printStackTrace();
                         }
+
                         break;
                     case 1:
                         tabLayout.getTabAt(0).getIcon().setAlpha(128);

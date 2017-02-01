@@ -6,7 +6,7 @@
     <string name="btn_icon_text">Ingresar</string>
     <string name="btn_exit">Salir</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Configuraciones</string>
+    <string name="action_settings">Salir</string>
     <string name="title_activity_tabs">Muestra de Obras de Arte</string>
 
 <!-- TODO: Remove or change this placeholder text -->
