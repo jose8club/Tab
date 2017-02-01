@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -218,6 +219,8 @@ public class WebFragment extends Fragment {
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        // Orientacion horizontal de la imagen
+                        // dialog.getOwnerActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                         dialog.show();
 
                         // Carga de la Imagen con Glide
@@ -320,6 +323,8 @@ public class WebFragment extends Fragment {
                         sum.setView(sumView);
                         final Dialog dialog = sum.create();
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        // Orientacion horizontal de la imagen
+                        // dialog.getOwnerActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                         dialog.show();
 
                         //Carga del Video
