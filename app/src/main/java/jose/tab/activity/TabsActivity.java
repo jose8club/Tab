@@ -396,15 +396,6 @@ public class TabsActivity extends AppCompatActivity {
     }
 
     /**
-     * Se usa el boton de back para salir de la aplicacion y volver a usar el splashscreen al entrar
-     */
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    /**
      * Metodo para establecer cada icono en cada tab disponible
      */
     private void setupTabIcons() {
